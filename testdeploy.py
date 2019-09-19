@@ -95,6 +95,3 @@ def search():
     else:
         todos_l = todos.find({refer:key})
     return render_template('searchlist.html',todos=todos_l,t=title,h=heading)
-
-if __name__ == "__main__":
-    app.run()
