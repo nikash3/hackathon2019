@@ -1,1 +1,1 @@
-web: gunicorn testdeploy:app
+web: gunicorn run:app
