@@ -22,7 +22,7 @@
     <div class="jumbotron">
         <div class="container">
             <form action="/search_list" method="post" enctype="multipart/form-data">
-                <input class="form-control" name="searchname" type="text" placeholder="Search for a keyword" aria-label="Search">
+                <input class="form-control" name="searchname" type="text" placeholder="Search with Name" aria-label="Search" required>
                 <br />
                 <input type="submit" name="search" class="btn btn-success" value="Search">
             </form>
@@ -34,23 +34,22 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr id="row">
-                            <th class="email">Email</th>
                             <th class="name">User Name</th>
+                            <th class="email">Email</th>
                             <th class="file">Resume</th>
                         </tr>
                     </thead>
                     {% for todo in todos %}
                     <tbody>
                         <tr class="datas">
-                            <td class="email">{{ todo['email'] }}</td>
                             <td class="name">{{ todo['name'] }}</td>
+                            <td class="email">{{ todo['email'] }}</td>
                             <td><a href="/resume/{{  todo.file }}" class="btn btn-success">Download</a></td>
                         </tr>
                     </tbody>
                     {% endfor %} {% elif flag %}
                     <h4>No Result Found !!</h4> {% endif %}
                 </table>
-
                 <!--<a href="/" class="btn btn-success">Back</a>-->
             </div>
 

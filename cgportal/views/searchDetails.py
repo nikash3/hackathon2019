@@ -4,6 +4,7 @@ import uuid
 from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
 import os
+import re
 from .dbLayer import connectDB
 
 searchDetails = Blueprint('searchDetails', __name__)
@@ -17,7 +18,7 @@ candidates_list = db.candidates_list #Select the collection name
 def search_list ():
     #Adding a Task
     search = request.values.get("searchname")
-    name = candidates_list.find({"name": search})
+    name = candidates_list.find({"name": { '$regex' : search }})
     return render_template('searchlist.html',todos=name,flag=True)
 
 @searchDetails.route("/searchlist")

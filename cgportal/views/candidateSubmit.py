@@ -29,9 +29,6 @@ def submit ():
     fname = fnameId + fnameOrg
     f.save(os.path.join("resume", fname))
     data = parser(os.path.join("resume", fname))
-    #Adding a Task
-    email=request.values.get("email")
-    name=request.values.get("name")
 
     candidates_lists.insert({ "email": email, "name":name, "file": fname, "skills": data["skills"], "contact_number": data["mobile_number"], "experience": data["total_experience"]})
     cur_rec = candidates_lists.find({"email": email})
