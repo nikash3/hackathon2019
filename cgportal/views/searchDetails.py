@@ -4,11 +4,13 @@ import uuid
 from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
 import os
+from .dbLayer import connectDB
 
 searchDetails = Blueprint('searchDetails', __name__)
 
-client = MongoClient("mongodb+srv://recruiter:recruiter123@hackathon-ha58p.gcp.mongodb.net/hackathon?retryWrites=true&w=majority") #host uri
-db = client.hackathon #Select the database
+#client = MongoClient("mongodb+srv://recruiter:recruiter123@hackathon-ha58p.gcp.mongodb.net/hackathon?retryWrites=true&w=majority") #host uri
+db = connectDB("recruiter","recruiter123")
+#db = client.hackathon #Select the database
 candidates_list = db.candidates_list #Select the collection name
 
 @searchDetails.route("/search_list", methods=['POST'])
@@ -24,4 +26,5 @@ def search ():
 
 @searchDetails.route('/resume/<filename>', methods=['GET', 'POST'])
 def download(filename):    
-    return send_from_directory(os.path.join('resume',""), filename, as_attachment=True)
+    ##path = os.path
+    return send_from_directory(os.path+'resume', filename, as_attachment=True)
