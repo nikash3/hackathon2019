@@ -18,14 +18,27 @@ def createIndex ():
 
 @elasticSearch.route("/elastic_search", methods=['POST'])
 def elasticsearch ():
+    fields = []
     search = request.values.get("searchname")
+    varall = request.values.get("all")
+    
     name = request.values.get("name")
+    if name == 'on' or varall == 'on':
+        fields.append('name');
     email = request.values.get("email")
+    if email == 'on' or varall == 'on':
+        fields.append('email')
     contact_no = request.values.get("contact_no")
+    if contact_no == 'on' or varall == 'on':
+        fields.append('contact_no')
     skills = request.values.get("skills")
+    if skills == 'on' or varall == 'on':
+        fields.append('skills')
     experience = request.values.get("experience")
+    if experience == 'on' or varall == 'on':
+        fields.append('experience')
     # 'on' if checked else 'None' 
-    query_json = {'query':{'simple_query_string': { 'query': search,'fields':['skills']}}}
+    query_json = {'query':{'simple_query_string': { 'query': search,'fields':fields}}}
     es_results = es.search(index="student",body=query_json,size=10)
     es_result_hits = es_results['hits']
     search_rec = []
