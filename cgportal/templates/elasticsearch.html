@@ -1,0 +1,145 @@
+<html>
+	<head>
+		<title>Elastic Search</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-dark bg-dark">
+			<ul class="nav">
+				<li class="nav-item">
+					<a class="nav-link active" style="color:cornsilk" href="/">Upload</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" style="color:cornsilk" href="/searchlist">Search</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" style="color:cornsilk" href="/elasticsearch">Elastic Search</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="jumbotron">
+			<div class="container">
+				<form action="/elastic_search" method="post" enctype="multipart/form-data">
+					<div class="input-group mb-3">
+						<input
+							class="form-control"
+							name="searchname"
+							type="text"
+							placeholder="Enter text for elastic search"
+							aria-label="Search"
+						/>
+						<div class="input-group-append">
+							<input type="submit" name="search" class="btn btn-success" />
+						</div>
+					</div>
+					<h2 class="btn btn-primary">Select checkbox for Elastic Search</h2>
+
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<input type="checkbox" name="all" checked value="all" />
+							</div>
+						</div>
+						<label class="input-group-text" for="inputGroupSelect01">All</label>
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<input type="checkbox" name="check_box" value="name" />
+							</div>
+						</div>
+						<label class="input-group-text" for="inputGroupSelect01">Name</label>
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<input type="checkbox" name="check_box" value="email" />
+							</div>
+						</div>
+						<label class="input-group-text" for="inputGroupSelect01">Email</label>
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<input type="checkbox" name="check_box" value="contact" />
+							</div>
+						</div>
+						<label class="input-group-text" for="inputGroupSelect01">Contact No</label>
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<input type="checkbox" name="check_box" />
+							</div>
+						</div>
+						<label class="input-group-text" for="inputGroupSelect01">Skills</label>
+					</div>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<input type="checkbox" name="check_box" value="experience" />
+							</div>
+						</div>
+						<label class="input-group-text" for="inputGroupSelect01">Experience</label>
+					</div>
+				</form>
+			</div>
+			<div>
+				<hr />
+				{% if todos[0] %}
+				<h3>Result of the Search</h3>
+				<br />
+				<table class="table">
+					<thead class="thead-dark">
+						<tr id="row">
+							<th class="email">Email</th>
+							<th class="name">User Name</th>
+							<th class="contact_number">Contact</th>
+							<th class="skills">Skills</th>
+							<th class="experience">Experience</th>
+							<th class="file">Resume</th>
+						</tr>
+					</thead>
+					{% for todo in todos %}
+					<tbody>
+						<tr class="datas">
+							<td class="email">{{ todo['email'] }}</td>
+							<td class="name">{{ todo['name'] }}</td>
+							<td class="contact_number">{{ todo['contact_number'] }}</td>
+							<td class="skills">{% for todo in todo.skills %} {{ todo }}, {% endfor %}</td>
+
+							<td class="experience">{{ todo['experience'] }}</td>
+							<td>
+								<a href="/resume/{{ todo.file }}" class="btn btn-success">Download</a>
+							</td>
+						</tr>
+					</tbody>
+					{% endfor %} {% elif flag %}
+					<h4>No Result Found !!</h4>
+					{% endif %}
+				</table>
+			</div>
+		</div>
+		<script
+			src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
