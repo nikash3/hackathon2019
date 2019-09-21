@@ -26,5 +26,6 @@ def search ():
 
 @searchDetails.route('/resume/<filename>', methods=['GET', 'POST'])
 def download(filename):    
-    ##path = os.path
-    return send_from_directory(os.path+'resume', filename, as_attachment=True)
+    path = searchDetails.root_path
+    path = path[0:len(path)-14]
+    return send_from_directory(os.path.join(path,"resume"), filename, as_attachment=True)
