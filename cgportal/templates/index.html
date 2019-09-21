@@ -22,17 +22,25 @@
             <form action="/submit" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
                 </div>
                 <div class="form-group">
                     <label for="name">User Name</label>
-                    <input type="text" name="name" class="form-control" id="name">
+                    <input type="text" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="form-group">
                     <label for="resume">Upload resume</label>
-                    <input type="file" name="file" class="form-control-file" id="resume">
+                    <input type="file" name="file" class="form-control-file" id="resume" required>
                 </div>
                 <input type="submit" class="btn btn-success" value="Submit">
+                <br/>
+                <br/>
+                {% if candidateExists %}
+                <h4 style="color:crimson">You are already Registered with us !!</h4>
+                {% endif %}
+                {%if successfulSubmit %}
+                <h4 style="color:rgb(16, 146, 4)72, 147)">Successfully Registered !!</h4>
+                {% endif %}
             </form>
             <div>
             </div>

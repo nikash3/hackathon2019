@@ -17,6 +17,11 @@ def submit ():
     email=request.values.get("email")
     name=request.values.get("name")
     candidates_lists = db.candidates_list
+    candidateExists = False
+    successfulSubmit = False
+    candidateExists = candidates_lists.find({"email":email}).count()
+    if candidateExists:  #Don't upload and parse the resume
+        return render_template('index.html',candidateExists=True,successfulSubmit=False)
     f = request.files['file']
     fnameOrg = secure_filename(f.filename)
     fnameId = secure_filename(str(uuid.uuid4()))
@@ -28,4 +33,4 @@ def submit ():
     name=request.values.get("name")
 
     candidates_lists.insert({ "email": email, "name":name, "file": fname, "skills": data["skills"], "contact_number": data["mobile_number"], "experience": data["total_experience"]})
-    return redirect("/searchlist")
+    return render_template("index.html",successfulSubmit=True)
