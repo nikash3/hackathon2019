@@ -5,10 +5,10 @@ from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
 import os
 from elasticsearch import Elasticsearch
+from .dbLayer import connectDB
 
 elasticSearch = Blueprint('elasticSearch', __name__)
-client = MongoClient("mongodb+srv://recruiter:recruiter123@hackathon-ha58p.gcp.mongodb.net/hackathon?retryWrites=true&w=majority") #host uri
-db = client.hackathon #Select the database
+db = connectDB("recruiter","recruiter123")
 candidates_list = db.candidates_list #Select the collection name
 
 @elasticSearch.route("/search")
