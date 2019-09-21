@@ -3,6 +3,7 @@ from werkzeug import secure_filename
 import uuid
 from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
+from .resumeParser import parser
 import os
 
 dbLayer = Blueprint('dbLayer', __name__)
@@ -21,9 +22,10 @@ def submit ():
     fnameId = secure_filename(str(uuid.uuid4()))
     fname = fnameId + fnameOrg
     f.save(os.path.join("resume", fname))
+    data = parser(os.path.join("resume", fname))
     #Adding a Task
     email=request.values.get("email")
     name=request.values.get("name")
 
-    candidates_list.insert({ "email": email, "name":name, "file": fname})
+    candidates_list.insert({ "email": email, "name":name, "file": fname, "skills": data["skills"], "contact_number": data["mobile_number"], "experience": data["total_experience"]})
     return redirect("/searchlist")

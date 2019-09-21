@@ -14,7 +14,6 @@ db = client.test #Select the database
 todos = db.todo #Select the collection name
 
 @resumeParser.route("/resume")
-def action ():
-    data = ResumeParser('C:/Users/gupta/Downloads/SHIVANSHU_GUPTA.pdf').get_extracted_data()
-    insertedData = todos.insert({"skills": data["skills"], "email": data["email"], "contact_number": data["mobile_number"], "experience": data["total_experience"]})
-    return render_template('searchlist.html',todos=insertedData,t=title,h=heading)
+def parser(filename):
+    data = ResumeParser(filename).get_extracted_data()
+    return data
