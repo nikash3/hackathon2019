@@ -13,8 +13,11 @@ def createIndex ():
     es.indices.delete(index='student', ignore=[400, 404])
     todos = candidates_list.find()
     for todo in todos :
-        record = { "name": todo["name"], "file": todo["file"], "email": todo["email"], "skills": todo["skills"] , "contact_number" : todo["contact_number"]}
-        es.index(index="student", doc_type="student-resume", id=todo["_id"],body=record)
+        insertToIndex(todo)
+
+def insertToIndex (record):
+    stu_record = { "name": record["name"], "file": record["file"], "email": record["email"], "skills": record["skills"] , "contact_number" : record["contact_number"], "experience": record["experience"]}
+    es.index(index="student", doc_type="student-resume", id=record["_id"],body=stu_record)
 
 @elasticSearch.route("/elastic_search", methods=['POST'])
 def elasticsearch ():

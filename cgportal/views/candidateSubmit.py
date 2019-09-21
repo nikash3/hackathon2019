@@ -5,6 +5,7 @@ from .resumeParser import parser
 import uuid
 from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
+from .elasticSearch import insertToIndex
 import os
 
 
@@ -33,4 +34,6 @@ def submit ():
     name=request.values.get("name")
 
     candidates_lists.insert({ "email": email, "name":name, "file": fname, "skills": data["skills"], "contact_number": data["mobile_number"], "experience": data["total_experience"]})
+    cur_rec = candidates_lists.find({"email": email})
+    insertToIndex(cur_rec[0])
     return render_template("index.html",successfulSubmit=True)
